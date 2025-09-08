@@ -6,8 +6,8 @@
   "scripts": {
     "start:api": "tsx server/index.ts",
     "dev:api": "cross-env PORT=4000 tsx server/index.ts",
-    "test": "vitest run",
-    "test:watch": "vitest",
+    "test": "vitest run -c vitest.config.ts",
+    "test:watch": "vitest -c vitest.config.ts",
     "test:e2e": "playwright test -c playwright.config.ts"
   },
   "dependencies": {
