@@ -13,6 +13,6 @@ export default defineConfig({
       '.github/**'
     ],
     environment: 'node',
-    globals: false
+    globals: true   // <-- enable describe/it/expect globals
   }
 });
