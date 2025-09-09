@@ -14,7 +14,7 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
-jobs:
+jobs:  # This line was missing proper indentation
   unit:
     name: unit
     runs-on: ubuntu-latest
@@ -22,16 +22,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
+       
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
-
+       
       - name: Install dependencies
         run: npm ci
-
+       
       - name: Run unit tests (Vitest)
         run: npm test
 
@@ -44,22 +44,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
+       
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
-
+       
       - name: Install dependencies
         run: npm ci
-
+       
       - name: Install Playwright
         run: npx playwright install --with-deps
-
+       
       - name: Run Playwright tests
         run: npx playwright test -c playwright.config.ts
-
+       
       - name: Upload Playwright report (on failure)
         if: failure()
         uses: actions/upload-artifact@v4
