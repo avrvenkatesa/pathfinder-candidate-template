@@ -20,3 +20,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Notes
 - Playwright runs API at `PORT=4000` via `npm run dev:api` and waits on `/health`.
 - Vitest excludes e2e tests via `vitest.config.ts` to avoid runner conflicts.
+## [Unreleased]
+- feat: ETag/If-Match preconditions with 428/412 handling (unit + e2e)
+

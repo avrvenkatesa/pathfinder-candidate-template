@@ -82,3 +82,45 @@ Add middleware + tests for ETag / If-Match preconditions (HTTP 412/428).
 Extend CI with those new tests.
 
 Use this template as a baseline for coding tasks and project scaffolding.
+
+## Candidate Task — Preconditions & Concurrency
+
+### Objective
+Implement optimistic concurrency on a demo resource using HTTP preconditions and ETags, with unit and E2E tests enforced by CI.
+
+### Starting Point
+- Express app with `/health`, `/item` demo, and robust ETag middleware.
+- Unit tests (Vitest + Supertest) and E2E tests (Playwright) scaffolded.
+- CI + branch protection require green checks.
+
+### Requirements
+1. Extend `/item` to support:
+   - `If-None-Match` on `GET /item` → return `304` when tag matches.
+   - `DELETE /item` that requires `If-Match` (428/412 rules apply).
+2. Add **at least 2** new unit tests and **1** E2E test covering these flows.
+3. All tests must pass locally and in CI.
+
+### Constraints
+- Strong ETags (quoted) for matching; treat weak tags as equivalent when provided.
+- No DB needed (in-memory OK), but structure code so an async tag supplier would work.
+
+### Acceptance Criteria
+- `GET /item` returns `304` when `If-None-Match` equals current ETag.
+- `DELETE /item` returns:
+  - 428 when `If-Match` missing
+  - 412 when tag stale
+  - 200 when tag matches (and bumps version or recreates item on next GET)
+- Tests: passing locally (`npm run test:all`) and in PR CI.
+
+### How to run
+```bash
+npm run test:api
+npm run test:e2e
+Evaluation Rubric
+Correct HTTP semantics (428/412/304/200): 40%
+
+Test quality and coverage: 30%
+
+Code clarity and extensibility (async-ready, clean middleware): 20%
+
+Git hygiene (small commits, clear messages): 10%
