@@ -1,7 +1,13 @@
-import { app } from "./app.js";
+import { app } from "./app.ts";
 
-const port = Number(process.env.PORT ?? 4000);
+const host = process.env.HOST ?? "0.0.0.0";
+const port = Number(process.env.PORT ?? 3000);
 
-app.listen(port, () => {
-  console.log(`[pathfinder] API listening on http://localhost:${port}`);
+const server = app.listen(port, host, () => {
+  console.log(`[server] listening on http://${host}:${port}`);
 });
+
+process.on("SIGTERM", () => server.close());
+process.on("SIGINT", () => server.close());
+
+export default server;
