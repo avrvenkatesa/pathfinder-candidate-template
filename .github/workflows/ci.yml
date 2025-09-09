@@ -36,7 +36,6 @@ jobs:  # This line was missing proper indentation
         run: npm test
 
   e2e:
-    if: github.event_name == 'pull_request'
     name: e2e
     runs-on: ubuntu-latest
     needs: unit
